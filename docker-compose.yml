@@ -1,0 +1,10 @@
+version: "3"
+services:
+    web:
+        build: ./web
+        restart: always
+        # more than 1 worker messes up sqlite3 and causes
+        # sqlite3.OperationalError: database is locked
+        command: gunicorn -w 1 -b 0.0.0.0:8000 run:app
+        ports:
+            - "80:8000"

@@ -26,7 +26,7 @@ handle_redirect_error = {
 add_user_invalid_query = {
     "status": "fail",
     "reason": "Both username and redirect_url are required.",
-    "example": "/u/add?username=lapz&redirect_to=https://abc.xyz"
+    "example": "/u/add?username=lapz&redirect_url=https://abc.xyz"
 }
 
 add_user_success = {

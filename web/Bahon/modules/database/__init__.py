@@ -22,7 +22,7 @@ from os import path
 from Bahon.modules.database import sqlite3_database
 
 defaults = {
-    "sqlite3_path": path.abspath("Bahon/extras/test.db")
+    "sqlite3_path": path.abspath("./Bahon/extras/test.db")
 }
 
 

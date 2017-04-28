@@ -20,4 +20,5 @@ along with Bahon.  If not, see <http://www.gnu.org/licenses/>.
 
 from Bahon.Bahon import app
 
-app.run(host="0.0.0.0")
+if __name__ == "__main__":
+    app.run()

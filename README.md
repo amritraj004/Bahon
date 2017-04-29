@@ -1,2 +1,23 @@
 # Bahon
 A dead simple URL redirector using Flask
+
+Steps
+```
+https://github.com/lap00zza/Bahon.git
+cd Bahon
+sudo docker-compose build
+sudo docker-compose up
+```
+
+Prerequisites
+1. **Docker**
+
+What is it actually doing?
+1. The main app is a simple flask app (**/web**)
+2. This app is being served with gunicorn. Gunicorn is running on port 
+8000.
+3. The webserver we are using is nginx (**/nginx**) which proxies 
+incoming requests to our gunicorn.
+
+Yup, that's all. If you want to work on the repo, then you will need 
+python3 installed. I used `python 3.6.1`.

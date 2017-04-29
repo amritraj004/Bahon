@@ -24,6 +24,11 @@ from datetime import datetime
 
 class SQLite3Database:
     prepared_statements = {
+        "create_new_table": "CREATE TABLE IF NOT EXISTS redirects("
+                            "timestamp TEXT NOT NULL,"
+                            "userName TEXT PRIMARY KEY NOT NULL,"
+                            "redirectTo TEXT NOT NULL"
+                            ")",
         "fetch_user": "SELECT redirectTo FROM redirects WHERE userName IS ?",
         "insert_user": "INSERT INTO redirects VALUES(?, ?, ?)",
         "delete_user": "DELETE FROM redirects WHERE userName IS ?;"
@@ -34,6 +39,13 @@ class SQLite3Database:
             db_location,
             check_same_thread=False
         )
+
+        cur = self.connection.cursor()
+        cur.execute(self.prepared_statements["create_new_table"])
+        cur.close()
+
+        # Commit the changes
+        self.connection.commit()
 
     def fetch_user(self, username: str) -> str or None:
         cur = self.connection.cursor()

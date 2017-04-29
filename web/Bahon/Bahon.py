@@ -28,8 +28,24 @@ app = Flask("__name__")
 
 # Initialize the database and get the connection object
 db = Database(
-    db_type="sqlite3",
-).database
+    db_type="sqlite3"
+)
+
+"""
+HTTP Status Codes Reference (from Wikipedia):
+- 200:  OK
+        Standard response for successful HTTP requests. The actual response will depend
+        on the request method used. In a GET request, the response will contain an entity
+        corresponding to the requested resource. In a POST request, the response will
+        contain an entity describing or containing the result of the action.
+- 400:  Bad Request
+        The server cannot or will not process the request due to an apparent client error
+        (e.g., malformed request syntax, too large size, invalid request message framing,
+        or deceptive request routing)
+- 404:  Not Found
+        The requested resource could not be found but may be available in the future.
+        Subsequent requests by the client are permissible.
+"""
 
 
 def generate_json_response(body: dict, code: int) -> Response:
@@ -41,8 +57,14 @@ def generate_json_response(body: dict, code: int) -> Response:
     :param code: The HTTP status code to send in the response.
     :returns Response
     """
+    if code == 200:
+        body.update({"status": "success"})
+    else:
+        body.update({"status": "fail"})
+
     resp = make_response(json.dumps(body), code)
     resp.headers["Content-Type"] = "application/json"
+
     return resp
 
 
@@ -56,7 +78,6 @@ def handle_redirect(username):
     result = db.fetch_user(username)
     if result:
         return redirect(result)
-        # return "redirect to: " + result
 
     else:
         return generate_json_response(p_resp.handle_redirect_error, 404)
@@ -78,3 +99,20 @@ def add_user():
     # Error
     else:
         return generate_json_response(p_resp.add_user_fail, 400)
+
+
+# TODO: Maybe delete should not be a public method or a token should be used?
+@app.route("/u/delete", methods=["GET"])
+def remove_user():
+    username = request.args.get("username")
+
+    # Validation for the query strings
+    if username is None:
+        return generate_json_response(p_resp.delete_user_invalid_query, 400)
+
+    if db.delete_user(username):
+        return generate_json_response(p_resp.delete_user_success, 200)
+
+    else:
+        return generate_json_response(p_resp.delete_user_fail, 400)
+

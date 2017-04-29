@@ -22,7 +22,7 @@ import sqlite3
 from datetime import datetime
 
 
-class Database:
+class SQLite3Database:
     prepared_statements = {
         "fetch_user": "SELECT redirectTo FROM redirects WHERE userName IS ?",
         "insert_user": "INSERT INTO redirects VALUES(?, ?, ?)",
@@ -62,3 +62,16 @@ class Database:
         except sqlite3.IntegrityError:
             return False
 
+    def delete_user(self, username: str):
+        if self.fetch_user(username):
+            cur = self.connection.cursor()
+            cur.execute(self.prepared_statements["delete_user"], (username, ))
+            cur.close()
+
+            # Commit the changes
+            self.connection.commit()
+
+            return True
+
+        else:
+            return False

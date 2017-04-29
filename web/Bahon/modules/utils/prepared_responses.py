@@ -19,21 +19,33 @@ along with Bahon.  If not, see <http://www.gnu.org/licenses/>.
 """
 
 handle_redirect_error = {
-    "status": "fail",
     "reason": "This username does not have a associated redirect."
 }
 
+# -- Add user block
 add_user_invalid_query = {
-    "status": "fail",
-    "reason": "Both username and redirect_url are required.",
-    "example": "/u/add?username=lapz&redirect_url=https://abc.xyz"
+    "reason": "Parameters username and redirect_url are both required.",
+    "example": "GET /u/add?username=lapz&redirect_url=https://abc.xyz"
 }
 
 add_user_success = {
-    "status": "success",
+    "info": "To test if the redirect is working properly, visit: {0}"
 }
 
 add_user_fail = {
-    "status": "fail",
     "reason": "This username already exists."
+}
+
+# -- Delete user block
+delete_user_invalid_query = {
+    "reason": "Parameter username is required.",
+    "example": "GET /u/delete?username=lapz"
+}
+
+delete_user_success = {
+    "info": "This username and its associated data are now deleted."
+}
+
+delete_user_fail = {
+    "reason": "This username does not exist."
 }

@@ -30,4 +30,4 @@ ENV/
 static/css
 
 # The test database
-Bahon/extras/test.db
+web/Bahon/extras/test.db

@@ -55,7 +55,7 @@ def index():
 def handle_redirect(username):
     result = db.fetch_user(username)
     if result:
-        return redirect(result[4])
+        return redirect(result)
         # return "redirect to: " + result
 
     else:

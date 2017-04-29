@@ -17,11 +17,12 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with Bahon.  If not, see <http://www.gnu.org/licenses/>.
 """
-
+import os
+import socket
+import json
 from flask import Flask, request, make_response, Response
 from Bahon.modules.database import Database
 import Bahon.modules.utils.prepared_responses as p_resp
-import json
 
 app = Flask("__name__")
 
@@ -47,7 +48,7 @@ def generate_json_response(body: dict, code: int) -> Response:
 
 @app.route("/")
 def index():
-    return "Bahon"
+    return "Environment var 'Name': {0}\nHostname: {1}".format(os.getenv("NAME"), socket.gethostname())
 
 
 @app.route("/<username>", methods=["GET"])

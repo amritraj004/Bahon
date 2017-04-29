@@ -15,4 +15,4 @@ RUN pip install -r requirements.txt
 ADD . /app
 
 # Define environment variable
-ENV NAME Bahon_Web
+ENV NAME bahon_web_image

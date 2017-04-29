@@ -20,7 +20,7 @@ along with Bahon.  If not, see <http://www.gnu.org/licenses/>.
 import os
 import socket
 import json
-from flask import Flask, request, make_response, Response
+from flask import Flask, request, make_response, Response, redirect
 from Bahon.modules.database import Database
 import Bahon.modules.utils.prepared_responses as p_resp
 
@@ -55,8 +55,8 @@ def index():
 def handle_redirect(username):
     result = db.fetch_user(username)
     if result:
-        # return redirect(result[4])
-        return "redirect to: " + result
+        return redirect(result[4])
+        # return "redirect to: " + result
 
     else:
         return generate_json_response(p_resp.handle_redirect_error, 404)

@@ -8,10 +8,11 @@ cd Bahon
 docker-compose build
 docker-compose up
 ```
-Note: Depending on how your docker is set up, you might need to use **sudo**.
+Note: Depending on how your docker/docker compose is set up, you might need to use **sudo**.
 
 ### Prerequisites
 1. **Docker**
+2. **Docker Compose**
 
 ### What is it actually doing?
 1. The main app is a simple flask app (**/web**).
